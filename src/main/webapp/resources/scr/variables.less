@@ -1,0 +1,78 @@
+/*серый фон страницы*/
+@body-bg: #FFEBCB; 
+/*специфический голубой фон данного дизайна*/
+@brand-primary: #FF9D4C; 
+/*фон панелей*/
+@panel-bg: #FFDDAB;
+/*цвет рамки панелей*/
+@panel-inner-border: #DEA065;
+/*убираем скругление у блоков*/
+@border-radius-base: 0;
+/*первичные кнопки имеют голубой фон*/
+@btn-primary-bg: @brand-primary; 
+/*если ширина экрана больше 992px, то ширина контейнера 960px*/
+@container-md: 960px; 
+/*если ширина экрана больше 1200px, то ширина контейнера так же 960px*/
+@container-lg: 1200px; 
+/*основным шрифтом будет Tahoma*/
+@font-family-base: Tahoma, sans-serif;
+/*задаем базовый размер*/
+@font-size-base: 12px; 
+/*основной цвет текста на странице*/
+@text-color: #4C4945;
+/*серый фон текстовых полей*/
+@input-bg: @panel-bg;
+/*серая рамка текстовых полей*/
+@input-border: @panel-inner-border;
+/*серый цвет текста в полях*/
+@input-color: black;
+
+@input-height-base: @navbar-height;
+
+@grid-columns: 24;
+
+@brand-font: "Times New Roman", Times, serif;
+
+/*высота навигационного меню*/
+@navbar-height: 37px;
+
+/*задаем  побольше горизонтальный отступ*/
+@nav-link-padding: 10px 30px;
+
+/*фон для пунктов меню*/
+@navbar-default-bg: @panel-bg;
+
+/*цвет текста в пунктах меню*/
+@navbar-default-link-color: @text-color;
+
+/*и при наведении мышки – такой же*/
+@navbar-default-link-hover-color: @navbar-default-link-color;
+
+/*фон активного пункта меню – наш специфический голубой цвет*/
+@navbar-default-link-active-bg: @brand-primary;
+
+@navbar-default-link-hover-bg: @brand-primary;
+
+/*цвет текста активного пункта меню*/
+@navbar-default-link-active-color: #fff;
+
+@navbar-default-link-hover-color: #fff;
+
+/*В настройках компонента укажем, что все группированные списки нужно показывать с фоном и рамкой компонента «панель»:*/
+@list-group-bg: @panel-bg;
+@list-group-border: @panel-inner-border;
+
+/*«primary» панель будет иметь серую рамку дефолтной панели, а не голубую, как задано по умолчанию*/
+@panel-primary-border: @panel-inner-border;
+
+/*зададим белый цвет текста и брэндовый голубой фон*/
+@jumbotron-bg: @brand-primary;
+@jumbotron-color: #fff;
+
+/*стиль кнопки*/
+@btn-default-color: white;
+
+@btn-default-bg: @brand-primary;
+
+ 
+
