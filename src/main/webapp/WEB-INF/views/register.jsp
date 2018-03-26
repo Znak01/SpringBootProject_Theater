@@ -29,7 +29,7 @@
       <form:input path="passwordConfirm" type="password" class="form-control" id="exampleInputPassword1" placeholder="Confirm Password"/>
     </div>
     
-    <button type="submit" class="btn btn-primary btn-lg">Register</button>
+    <button type="submit" class="btn btn-outline-success btn-lg">Register</button>
     </fieldset>
 </form:form>
 </div>

@@ -26,3 +26,54 @@
     </tbody>
     </table>
     </div>
+    
+    
+    <div v-for="actor in actors">
+    <div class="row">
+       <div class="col-lg-4 col-md-10 col-sm-8">
+         <img alt="Profile" class="list-group-item rounded" src="data:img/png; base64, {{ actor.actorImageSrc }}" height="400px" width="300px">
+       </div>
+       <div class="col-lg-6 col-md-10 col-sm-8">
+          <h3>{{ actor.firstName }} {{ actor.lastName }}</h3>
+          
+         <a href="/actor/{{ actor.id }}" class="btn btn-outline-info">View</a>
+       </div>
+    
+    </div>
+    </div>
+    
+    
+    
+    
+    <script src="${pageContext.request.contextPath}/resources/js/vue.min.js"></script>
+            <script src="${pageContext.request.contextPath}/resources/js/axios.min.js"></script>
+            <script src="${pageContext.request.contextPath}/resources/js/app.js"></script>
+    
+    <script>
+    new Vue({
+    	el: "#app",
+    	data: {
+    		actors: [],
+    		serverUrl: "http://localhost:8090/api/v1"
+    	},
+    	methods: {
+    		getActors: function() {
+    			var self = this;
+    			
+    			axios.get(this.serverUrl + "/actors")
+    			      .then(function(respons) {
+    			    	  self.actors = respons.data;
+    			    	  console.log(respons);
+    			      })
+    			      .catch(function(error) {
+    			    	  console.log(error);
+    			      });
+    			
+    		}
+    	},
+    	mounted() {
+    		this.getActors();
+    	}
+    })
+    
+    </script>

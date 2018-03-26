@@ -1,7 +1,6 @@
 package ua.springboot.web.entity;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -44,7 +43,9 @@ import ua.springboot.web.entity.enumeration.Gender;
 				CascadeType.PERSIST, CascadeType.REFRESH})
 		@JoinTable(name = "actors_plays", joinColumns = @JoinColumn(name = "actor_id"),
 			    inverseJoinColumns = @JoinColumn(name = "play_id"))
-		private List<ThePlay> plays = new ArrayList<>();
+		private Set<ThePlay> plays;
+		
+		
 
 		
 	

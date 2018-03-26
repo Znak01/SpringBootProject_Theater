@@ -13,7 +13,7 @@
   </li>
   
   <li class="nav-item">
-    <a class="nav-link disabled" href="#">Add Session</a>
+    <a class="nav-link" href="session/add">Add Session</a>
   </li>
 </ul>
 </div>
@@ -28,7 +28,7 @@
     <a class="nav-link" data-toggle="tab" href="#play-list">List of Plays</a>
   </li>
   <li class="nav-item">
-    <a class="nav-link disabled" href="#">List of Sessions</a>
+    <a class="nav-link" data-toggle="tab" href="#session-list">List of Sessions</a>
   </li>
   
 </ul>

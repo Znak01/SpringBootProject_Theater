@@ -39,7 +39,7 @@
       <form:input path="actorImage" type="file" class="form-control"/>
     </div>
 
-    <button type="submit" class="btn btn-primary btn-lg">Edit</button>
+    <button type="submit" class="btn btn-outline-warning btn-lg">Edit</button>
     </fieldset>
 </form:form>
 </div>

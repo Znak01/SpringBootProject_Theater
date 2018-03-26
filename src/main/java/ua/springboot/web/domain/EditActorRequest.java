@@ -1,7 +1,6 @@
 package ua.springboot.web.domain;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,7 +20,7 @@ public class EditActorRequest {
 	private Integer age;
 	private Gender gender;
 	
-	private List<ThePlay> plays = new ArrayList<>();
+	private Set<ThePlay> plays;
 	
 	private MultipartFile actorImage;
 	

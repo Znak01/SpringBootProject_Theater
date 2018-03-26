@@ -24,8 +24,8 @@ import lombok.Setter;
 public class CustomAuthentificationSuccessHandler 
         implements AuthenticationSuccessHandler {
 
-	private final String ADMIN_PAGE = "/admin";
-	private final String USER_PAGE = "/visitor";
+	private final String ADMIN_PAGE = "/admin/board";
+	private final String USER_PAGE = "/visitor/profile";
 	
 	private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 

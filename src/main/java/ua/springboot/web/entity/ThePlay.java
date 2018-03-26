@@ -1,8 +1,7 @@
 package ua.springboot.web.entity;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -39,7 +38,7 @@ public class ThePlay extends BaseEntity {
 	
 	@ManyToMany(mappedBy = "plays", cascade = {CascadeType.DETACH, CascadeType.MERGE, 
 			CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER)
-	private List<Actor> actors = new ArrayList<>();
+	private Set<Actor> actors;
 	
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "session_id")

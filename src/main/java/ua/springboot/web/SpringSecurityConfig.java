@@ -72,7 +72,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 		        .rememberMeParameter("rememberme")
 		        .key("secret key")
 		        .rememberMeCookieName("RememberMeCookie")
-		        .tokenValiditySeconds(365 * 24 * 60 * 60);
+		        .tokenValiditySeconds(365 * 24 * 60 * 60)
+		   .and()
+		        .csrf().disable();
 	}
 
 	@Override

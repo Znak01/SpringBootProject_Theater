@@ -2,6 +2,10 @@ package ua.springboot.web.domain;
 
 import java.math.BigDecimal;
 
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotEmpty;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,8 +15,8 @@ import ua.springboot.web.entity.enumeration.Genre;
 @Getter @Setter
 public class PlayRequest {
 
-    private String name;
-	private Genre genre;
-	private BigDecimal price;
+	@NotEmpty private String name;
+	@NotNull private Genre genre;
+	@NotNull private BigDecimal price;
 	
 }

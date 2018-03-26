@@ -31,7 +31,6 @@ public class PlayController {
 	private PlayService playService;
 	
 	@GetMapping("/{playId}")
-	@PreAuthorize("hasRole('ROLE_USER') OR hasRole('ROLE_ADMIN')")
 	public String showPlayProf(@PathVariable("playId") int id, Model model) throws IOException {
 		
 		ThePlay entity = playService.findById(id);
@@ -61,7 +60,7 @@ public class PlayController {
 	public String savePlay(@ModelAttribute("play") @Valid PlayRequest request, BindingResult result) {
 		
 		if(result.hasErrors()) {
-			return "actor/add-actor";
+			return "play/add-play";
 		}
 		ThePlay entity = PlayMapper.toPlay(request);
 		
@@ -69,7 +68,8 @@ public class PlayController {
 		return "redirect:/play/list";
 	}
 	
-	@GetMapping("/{playId/edit")
+	@GetMapping("edit/{playId}")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public String showPlayEdingForm(@PathVariable("playId") int playId, Model model) {
 		ThePlay entity = playService.findById(playId);
 		EditPlayRequest request = PlayMapper.entityToEditPlay(entity);
@@ -79,7 +79,7 @@ public class PlayController {
 		return "play/edit-play";
 	}
 	
-	@PostMapping("/{playId/edit")
+	@PostMapping("edit/{playId}")
 	public String editPlay(@ModelAttribute("editPlay") EditPlayRequest request,
 			               @PathVariable("playId") int playId) throws IOException {
 		if(request.getPlayImage().isEmpty()) {

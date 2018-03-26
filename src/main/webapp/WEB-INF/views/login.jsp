@@ -22,7 +22,7 @@
 			<label><input type="checkbox" name="rememberme" class="">
 				Remember me</label>
 		</div>
-    <button type="submit" class="btn btn-primary btn-lg">Login</button>
+    <button type="submit" class="btn btn-outline-success btn-lg">Login</button>
     </fieldset>
 </form:form>
 </div>

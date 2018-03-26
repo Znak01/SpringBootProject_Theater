@@ -50,6 +50,6 @@ public class Visitor extends BaseEntity{
 	
 	@ManyToMany(mappedBy = "visitors", cascade = {CascadeType.DETACH, CascadeType.MERGE, 
 			CascadeType.PERSIST, CascadeType.REFRESH})
-	private List<Session> halls = new ArrayList<>();
+	private List<Session> sessions = new ArrayList<>();
 	
 }

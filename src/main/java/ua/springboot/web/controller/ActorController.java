@@ -32,7 +32,6 @@ public class ActorController {
 	private ActorService actorService;
 	
 	@GetMapping("/{actorId}")
-	@PreAuthorize("hasRole('ROLE_USER') OR hasRole('ROLE_ADMIN')")
 	public String showActorProf(@PathVariable("actorId") int id, Model model) throws IOException {
 		
 		Actor entity = actorService.findById(id);
@@ -76,6 +75,7 @@ public class ActorController {
 	}
 	
 	@GetMapping("/edit/{actorId}")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public String showActorEdingForm(@PathVariable("actorId") int actorId, Model model) {
 		Actor actor = actorService.findById(actorId);
 		EditActorRequest request = ActorMapper.entityToEditActor(actor);

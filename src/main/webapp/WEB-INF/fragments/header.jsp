@@ -11,12 +11,13 @@
 
 		<div class="collapse navbar-collapse" id="navbarColor01">
 			<ul class="navbar-nav">
-				<li class="nav-item active"><a class="nav-link" href="/">Home
+				<li class="nav-item"><a class="nav-link" href="/">Home
 						<span class="sr-only">(current)</span>
 				</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">Features</a>
+				<li class="nav-item"><a class="nav-link" href="play/list">Plays</a>
 				</li>
-				<li class="nav-item"><a class="nav-link" href="#">Pricing</a></li>
+				<li class="nav-item"><a class="nav-link" href="actor/list">Actors</a></li>
+				<li class="nav-item"><a class="nav-link" href="session/list">Schedule</a></li>
 				<li class="nav-item"><a class="nav-link" href="#">About</a></li>
 			</ul>
 			<ul class="nav navbar-nav ml-auto">
@@ -29,6 +30,10 @@
 				
 
 				<sec:authorize access="isAuthenticated()">
+				<sec:authorize access="hasRole('ROLE_ADMIN')">
+				<li class="nav-item"><a class="nav-link"
+						href="/admin">Admin Page</a></li>
+				</sec:authorize>
 					<c:url var="logoutUrl" value="/logout" />
 					<form:form class="form-inline" action="${logoutUrl }" method="POST">
 						<sec:authentication property="principal.username" var="username" />

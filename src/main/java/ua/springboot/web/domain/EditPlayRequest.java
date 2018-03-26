@@ -1,8 +1,7 @@
 package ua.springboot.web.domain;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Set;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,7 +20,7 @@ public class EditPlayRequest {
 	private String name;
 	private Genre genre;
 	private BigDecimal price;
-	private List<Actor> actors = new ArrayList<>();
+	private Set<Actor> actors;
 	private Session session;
 	
 	private MultipartFile playImage;

@@ -13,6 +13,7 @@ public class ApacheTilesConfig {
 	public TilesConfigurer tilesConfigurer() {
 		final TilesConfigurer configurer = new TilesConfigurer();
         configurer.setDefinitions(new String[] { "WEB-INF/tiles/tiles.xml" });
+        configurer.setUseMutableTilesContainer(true);
         configurer.setCheckRefresh(true);
         return configurer;
 	}
