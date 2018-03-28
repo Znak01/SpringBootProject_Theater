@@ -16,10 +16,22 @@
        <a href="/actor/edit/${actor.id}" class="btn btn-outline-warning btn-lg">Edit</a> 
      </sec:authorize>
 </div> 
-<div class="col-lg-4 col-md-3 col-sm-2 offset-lg-4">
+
+<div class="col-lg-4 col-md-3 col-sm-2">
+<div class="list-group">
+<button class="btn btn-outline-info btn-lg" @click="see = !see">Show Plays</button>
+ <ul class="list-group" v-if="see">
+ <li class="list-group-item list-group-item-action">First Name: ${actor.firstName }</li>
+    <li v-for="actor in actors" class="list-group-item list-group-item-action">Play Name: {{actor.plays.name }}</li>
+  </ul>
+</div>
+</div>
+
+<div class="col-lg-4 col-md-3 col-sm-2 ">
 <img alt="Profile" class="list-group-item rounded" src="data:img/png; base64, ${actorImageSrc }" height="400px" width="300px">
 </div>
 </div>
+
 <div class="row">
 <div class="col-lg-12 col-md-8 col-sm-6">
 <h2>Example body text</h2>

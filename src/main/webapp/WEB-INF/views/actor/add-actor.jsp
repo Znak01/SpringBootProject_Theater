@@ -29,7 +29,7 @@
     
     <div class="form-group">
        <label>Gender:</label>
-       <form:radiobuttons path="gender" items="${gender}"/><form:errors path="gender" class="text-danger"/>
+       <form:radiobuttons path="gender" items="${gender}" checked="${gender == 'MALE' ? 'checked' : '' }" /><form:errors path="gender" class="text-danger"/>
      </div> 
     
     <div class="form-group">
@@ -37,7 +37,7 @@
       <form:input path="actorImage" type="file" class="form-control"/><form:errors path="actorImage" class="text-danger"/>
     </div>
 
-    <button type="submit" class="btn btn-primary btn-lg">Add</button>
+    <button type="submit" class="btn btn-outline-success btn-lg">Add</button>
     </fieldset>
 </form:form>
 </div>

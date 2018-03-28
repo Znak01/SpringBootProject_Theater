@@ -1,17 +1,23 @@
 <%@ include file="/WEB-INF/views/taglib.jsp" %>
 
-<img alt="Profile" class="list-group-item" src="data:img/png; base64, ${imageSrc }" width="300px">
-<div class="col-lg-6 col-md-5 col-sm-4">
+<div class="row">
+<div class="col-lg-4 col-md-3 col-sm-2">
 <div class="list-group">
- 
-  <a href="#" class="list-group-item list-group-item-action">Login: ${visitor.login }</a>
-  <a href="#" class="list-group-item list-group-item-action">Email: ${visitor.email }</a>
-  <a href="#" class="list-group-item list-group-item-action">First Name: ${visitor.firstName }</a>
-  <a href="#" class="list-group-item list-group-item-action">Last Name: ${visitor.lastName }</a>
-  <a href="#" class="list-group-item list-group-item-action">Age: ${visitor.age }</a>
-  <a href="#" class="list-group-item list-group-item-action">Mobile: ${visitor.mobile }</a>
-  <a href="#" class="list-group-item list-group-item-action">Gender: ${visitor.gender }</a> 
+
+  <ul class="list-group">
+    <li class="list-group-item list-group-item-action">Login: ${visitor.login }</li>
+    <li class="list-group-item list-group-item-action">Email: ${visitor.email }</li>
+    <li class="list-group-item list-group-item-action">First Name: ${visitor.firstName }</li>
+    <li class="list-group-item list-group-item-action">Last Name: ${visitor.lastName }</li>
+    <li class="list-group-item list-group-item-action">Age: ${visitor.age }</li>
+    <li class="list-group-item list-group-item-action">Mobile: ${visitor.mobile }</li>
+    <li class="list-group-item list-group-item-action">Gender: ${visitor.gender }</li>
+  </ul>
   
+ </div>
+       <a href="/visitor/edit/${visitor.id}" class="btn btn-outline-warning btn-lg">Edit</a>
+ </div>
+ <div class="col-lg-4 col-md-3 col-sm-2 offset-lg-4">
+<img alt="Profile" class="list-group-item rounded" src="data:img/png; base64, ${imageSrc }" width="300px">
 </div>
-<a href="/visitor/edit/${visitor.id}" class="btn btn-primary btn-lg">Edit</a>
 </div>

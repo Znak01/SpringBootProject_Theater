@@ -1,6 +1,7 @@
 package ua.springboot.web.domain;
 
 import java.math.BigDecimal;
+import java.util.Set;
 
 import javax.validation.constraints.NotNull;
 
@@ -16,7 +17,7 @@ import ua.springboot.web.entity.enumeration.Genre;
 public class PlayRequest {
 
 	@NotEmpty private String name;
-	@NotNull private Genre genre;
+	private Set<Genre> genres;
 	@NotNull private BigDecimal price;
 	
 }

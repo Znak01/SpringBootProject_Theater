@@ -9,7 +9,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import ua.springboot.web.entity.Actor;
-import ua.springboot.web.entity.Session;
 import ua.springboot.web.entity.enumeration.Genre;
 
 @NoArgsConstructor
@@ -18,10 +17,9 @@ public class EditPlayRequest {
 
 	private int id;
 	private String name;
-	private Genre genre;
+	private Set<Genre> genres;
 	private BigDecimal price;
 	private Set<Actor> actors;
-	private Session session;
 	
 	private MultipartFile playImage;
 	

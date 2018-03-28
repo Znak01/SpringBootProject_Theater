@@ -21,12 +21,24 @@
       <label class="form-control-label">Price</label>
       <form:input path="price" type="text" placeholder="Price" class="form-control" id="inputValid"/>
     </div>
-    
-    <div class="form-group">
-       <label>Genre:</label>
-       <form:radiobuttons path="genre" items="${genres}"/>
+     
+     <div class="form-group">
+     <label class="form-control-label">Genre:</label>
+     <form:select path="genres" class="form-control">
+     <c:forEach items="${genres }" var="genre">
+      <form:option value="${genre }">${genre }</form:option>
+     </c:forEach>
+     </form:select>
      </div> 
      
+     <div class="form-group">
+     <label class="form-control-label">Actors:</label>
+     <form:select path="actors" class="form-control">
+     <c:forEach items="${actorList }" var="actor">
+      <form:option value="${actor }">${actor.firstName } ${actor.lastName }</form:option>
+     </c:forEach>
+     </form:select>
+     </div> 
     
     <div class="form-group">
       <label class="form-control-label">Play Image</label>

@@ -1,16 +1,15 @@
 package ua.springboot.web.entity;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -22,12 +21,13 @@ import lombok.Setter;
 @NoArgsConstructor
 @Table(name = "session")
 public class Session extends BaseEntity {
-
+	
 	private String date;
 	private String time;
 	
-	@OneToMany(mappedBy = "session")
-	private Set<ThePlay> plays = new HashSet<>();
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinColumn(name = "play_id")
+	private ThePlay play;
 	
 	@ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, 
 			CascadeType.PERSIST, CascadeType.REFRESH})

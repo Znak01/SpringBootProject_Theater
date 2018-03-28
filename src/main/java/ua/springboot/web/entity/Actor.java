@@ -44,6 +44,46 @@ import ua.springboot.web.entity.enumeration.Gender;
 		@JoinTable(name = "actors_plays", joinColumns = @JoinColumn(name = "actor_id"),
 			    inverseJoinColumns = @JoinColumn(name = "play_id"))
 		private Set<ThePlay> plays;
+
+		@Override
+		public int hashCode() {
+			final int prime = 31;
+			int result = super.hashCode();
+			result = prime * result + ((age == null) ? 0 : age.hashCode());
+			result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
+			result = prime * result + ((gender == null) ? 0 : gender.hashCode());
+			result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
+			return result;
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (!super.equals(obj))
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			Actor other = (Actor) obj;
+			if (age == null) {
+				if (other.age != null)
+					return false;
+			} else if (!age.equals(other.age))
+				return false;
+			if (firstName == null) {
+				if (other.firstName != null)
+					return false;
+			} else if (!firstName.equals(other.firstName))
+				return false;
+			if (gender != other.gender)
+				return false;
+			if (lastName == null) {
+				if (other.lastName != null)
+					return false;
+			} else if (!lastName.equals(other.lastName))
+				return false;
+			return true;
+		}
 		
 		
 

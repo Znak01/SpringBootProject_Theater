@@ -8,7 +8,7 @@
     <legend>Session Add Form</legend>
     
     <div class="form-group">
-			<form:errors path="*" cssClass="error" />
+			<form:errors path="*" class="text-danger" />
 		</div>
     
     <div class="form-group">
@@ -22,14 +22,14 @@
     
     <div class="form-group">
       <label class="form-control-label">Chose the play:</label>
-      <form:select path="plays" class="form-control">
+      <form:select path="play" class="form-control">
              <c:forEach items="${playList}" var="play">
                <form:option value="${play}">${play.name}</form:option>
              </c:forEach>
              </form:select>
     </div>
     
-    <button type="submit" class="btn btn-primary btn-lg">Add</button>
+    <button type="submit" class="btn btn-outline-success btn-lg">Add</button>
     </fieldset>
 </form:form>
 </div>

@@ -23,12 +23,16 @@
     </div>
     
     <div class="form-group">
-       <label>Genre:</label>
-       <form:radiobuttons path="genre" items="${genres}"/>
+     <label class="form-control-label">Genre:</label>
+     <form:select path="genres" class="form-control">
+     <c:forEach items="${genres }" var="genre">
+      <form:option value="${genre }">${genre }</form:option>
+     </c:forEach>
+     </form:select>
      </div> 
     
 
-    <button type="submit" class="btn btn-primary btn-lg">Add</button>
+    <button type="submit" class="btn btn-outline-success btn-lg">Add</button>
     </fieldset>
 </form:form>
 </div>

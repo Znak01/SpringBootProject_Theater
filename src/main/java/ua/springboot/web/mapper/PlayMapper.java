@@ -10,7 +10,7 @@ public interface PlayMapper {
 		ThePlay play = new ThePlay();
 		play.setName(request.getName());
 		play.setPrice(request.getPrice());
-		play.setGenre(request.getGenre());
+		play.setGenres(request.getGenres());
 		return play;
 	}
 	
@@ -18,10 +18,9 @@ public interface PlayMapper {
 		EditPlayRequest request = new EditPlayRequest();
 		request.setId(entity.getId());
 		request.setName(entity.getName());
-		request.setGenre(entity.getGenre());
+		request.setGenres(entity.getGenres());
 		request.setPrice(entity.getPrice());
 		request.setActors(entity.getActors());
-		request.setSession(entity.getSession());
 		return request;
 	}
 	
@@ -29,10 +28,9 @@ public interface PlayMapper {
 		ThePlay play = new ThePlay();
 		play.setId(request.getId());
 		play.setName(request.getName());
-		play.setGenre(request.getGenre());
+		play.setGenres(request.getGenres());
 		play.setPrice(request.getPrice());
 		play.setActors(request.getActors());
-		play.setSession(request.getSession());
 		play.setPlayImage(request.getPlayImage().getOriginalFilename()); 
 		return play;
 	}

@@ -1,6 +1,7 @@
 package ua.springboot.web.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.validation.Valid;
 
@@ -17,9 +18,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import ua.springboot.web.domain.EditPlayRequest;
 import ua.springboot.web.domain.PlayRequest;
+import ua.springboot.web.entity.Actor;
 import ua.springboot.web.entity.ThePlay;
 import ua.springboot.web.entity.enumeration.Genre;
 import ua.springboot.web.mapper.PlayMapper;
+import ua.springboot.web.service.ActorService;
 import ua.springboot.web.service.PlayService;
 import ua.springboot.web.service.utils.CustomFileUtils;
 
@@ -27,9 +30,18 @@ import ua.springboot.web.service.utils.CustomFileUtils;
 @RequestMapping("/play")
 public class PlayController {
 	
-	@Autowired
-	private PlayService playService;
 	
+	private PlayService playService;
+	private ActorService actorService;
+	
+	
+	@Autowired
+	public PlayController(PlayService playService, ActorService actorService) {
+		super();
+		this.playService = playService;
+		this.actorService = actorService;
+	}
+
 	@GetMapping("/{playId}")
 	public String showPlayProf(@PathVariable("playId") int id, Model model) throws IOException {
 		
@@ -72,8 +84,10 @@ public class PlayController {
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public String showPlayEdingForm(@PathVariable("playId") int playId, Model model) {
 		ThePlay entity = playService.findById(playId);
+		List<Actor> actors = actorService.findAllActors();
 		EditPlayRequest request = PlayMapper.entityToEditPlay(entity);
 		
+		model.addAttribute("actorList", actors);
 		model.addAttribute("genres", Genre.values());
 		model.addAttribute("editPlay", request);
 		return "play/edit-play";

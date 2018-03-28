@@ -6,5 +6,9 @@
 5. Principal.
 6. Errors.
 7. SessionAtribute.
-8. Image.
-9. Git connect in Eclipse.
+8. Git connect in Eclipse.
+
+1. Actor.id (a).
+2. Buy Form.
+3. Add actor to play.
+4. Script

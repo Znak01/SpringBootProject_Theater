@@ -75,7 +75,7 @@
     <tr>
       <th scope="row">${play.id}</th>
       <td>${play.name}</td>
-      <td>${play.genre}</td>
+      <td>${play.genres}</td>
       <td>${play.price}</td>
       <td class="info"><a href="/play/${play.id}" class="btn btn-outline-info">View</a></td>
     </tr>
