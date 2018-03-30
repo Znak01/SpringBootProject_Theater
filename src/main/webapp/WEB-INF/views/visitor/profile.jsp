@@ -12,6 +12,7 @@
     <li class="list-group-item list-group-item-action">Age: ${visitor.age }</li>
     <li class="list-group-item list-group-item-action">Mobile: ${visitor.mobile }</li>
     <li class="list-group-item list-group-item-action">Gender: ${visitor.gender }</li>
+    <li class="list-group-item list-group-item-action">Balance: ${visitor.balance } $</li>
   </ul>
   
  </div>

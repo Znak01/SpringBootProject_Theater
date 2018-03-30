@@ -16,9 +16,11 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import ua.springboot.web.domain.EditUserRequest;
 import ua.springboot.web.domain.VisitorProfileRequest;
+import ua.springboot.web.entity.Session;
 import ua.springboot.web.entity.Visitor;
 import ua.springboot.web.entity.enumeration.Gender;
 import ua.springboot.web.mapper.UserMapper;
+import ua.springboot.web.service.SessionService;
 import ua.springboot.web.service.VisitorService;
 import ua.springboot.web.service.utils.CustomFileUtils;
 
@@ -29,14 +31,18 @@ public class VisitorController {
 
 	
 	private VisitorService visitorService;
-	
+	private SessionService sessionService;
 	
 	
 	@Autowired
-	public VisitorController(VisitorService visitorService) {
+	public VisitorController(VisitorService visitorService, SessionService sessionService) {
+		super();
 		this.visitorService = visitorService;
-		
+		this.sessionService = sessionService;
 	}
+
+	
+	
 
 	@GetMapping
 	@PreAuthorize("hasRole('ROLE_USER') OR hasRole('ROLE_ADMIN')")
@@ -76,15 +82,43 @@ public class VisitorController {
 	public String saveEditVisitor(@ModelAttribute("editModel") EditUserRequest request,
 			@PathVariable("visitorId") int visitorId) throws IOException {
 		
-//		visitorService.uploadImage(file, visitor);
-		if(request.getFile().isEmpty()) {
-			return "redirect:/visitor/edit/" + visitorId;
-		}
 		Visitor entity = UserMapper.editRequestToEntity(request);
 		visitorService.saveEditVisitor(entity);
 		CustomFileUtils.createFolder("visitor_" + entity.getId());
 		CustomFileUtils.createImage("visitor_" + entity.getId(), request.getFile());		
 		return "redirect:/visitor";
+	}
+	
+	@GetMapping("buy/{sessionId}")
+	@PreAuthorize("hasRole('ROLE_USER') OR hasRole('ROLE_ADMIN')")
+	public String showBuyForm(@PathVariable("sessionId") int sessionId, Principal principal, Model model) {
+		Visitor visitor = visitorService.findVisitorByEmail(principal.getName());
+		if(visitor == null) return "redirect:/";
+		
+		
+		Session session = sessionService.findById(sessionId);
+		EditUserRequest userRequest = UserMapper.entityToEditUser(visitor);
+		userRequest.getSessions().add(session);
+		
+		
+		
+		model.addAttribute("seatsList", session.getSeatsList());
+		model.addAttribute("editModel", userRequest);
+		return "session/buy-form";
+	}
+	
+	
+	@PostMapping("buy/{sessionId}")
+	@PreAuthorize("hasRole('ROLE_USER') OR hasRole('ROLE_ADMIN')")
+	public String buyTicket(@ModelAttribute("editModel") EditUserRequest userRequest,
+			                @PathVariable("sessionId") int sessionId) {
+		
+		Session session = sessionService.findById(sessionId);
+		session.getSeatsList().removeAll(userRequest.getSeats());
+		
+		Visitor visitor = UserMapper.editRequestToEntity(userRequest);
+		visitorService.saveEditVisitor(visitor);
+		return "redirect:/session/list";
 	}
 	
 }

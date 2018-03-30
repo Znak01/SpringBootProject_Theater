@@ -37,10 +37,12 @@ public interface UserMapper {
 		request.setLogin(entity.getLogin());
 		request.setEmail(entity.getEmail());
 		request.setAge(entity.getAge());
+		request.setBalance(entity.getBalance());
 		request.setFirstName(entity.getFirstName());
 		request.setLastName(entity.getLastName());
 		request.setGender(entity.getGender());
 		request.setMobile(entity.getMobile());
+		
 		
 		return request;
 	}
@@ -51,10 +53,13 @@ public interface UserMapper {
 		request.setLogin(entity.getLogin());
 		request.setEmail(entity.getEmail());
 		request.setAge(entity.getAge());
+		request.setBalance(entity.getBalance());
 		request.setFirstName(entity.getFirstName());
 		request.setLastName(entity.getLastName());
 		request.setMobile(entity.getMobile());
 		request.setGender(entity.getGender());
+		request.setSeats(entity.getSeats());
+		request.setSessions(entity.getSessions());
 		
 		request.setPassword(entity.getPassword());
 		
@@ -67,16 +72,20 @@ public interface UserMapper {
 		entity.setLogin(request.getLogin());
 		entity.setEmail(request.getEmail());
 		entity.setAge(request.getAge());
+		entity.setBalance(request.getBalance());
+		entity.setSeats(request.getSeats());
 		entity.setFirstName(request.getFirstName());
 		entity.setLastName(request.getLastName());
 		entity.setVisitorImage(request.getFile().getOriginalFilename());
 		entity.setMobile(request.getMobile());
 		entity.setGender(request.getGender());
+		entity.setSessions(request.getSessions());
 		entity.setRole(Role.ROLE_USER);
 		
 		entity.setPassword(request.getPassword()); 
 		
 		return entity;
 	}
+	
 	
 }

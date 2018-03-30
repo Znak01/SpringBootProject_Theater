@@ -14,10 +14,10 @@
 				<li class="nav-item"><a class="nav-link" href="/">Home
 						<span class="sr-only">(current)</span>
 				</a></li>
-				<li class="nav-item"><a class="nav-link" href="play/list">Plays</a>
+				<li class="nav-item"><a class="nav-link" href="/play/list">Plays</a>
 				</li>
-				<li class="nav-item"><a class="nav-link" href="actor/list">Actors</a></li>
-				<li class="nav-item"><a class="nav-link" href="session/list">Schedule</a></li>
+				<li class="nav-item"><a class="nav-link" href="/actor/list">Actors</a></li>
+				<li class="nav-item"><a class="nav-link" href="/session/list">Schedule</a></li>
 				<li class="nav-item"><a class="nav-link" href="#">About</a></li>
 			</ul>
 			<ul class="nav navbar-nav ml-auto">

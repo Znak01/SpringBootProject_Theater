@@ -11,7 +11,7 @@
     <div class="form-group">
 			<form:errors path="*" cssClass="error" />
 		</div>
-    <form:hidden path="id"/>
+    
     <div class="form-group">
       <label class="form-control-label">Name</label>
       <form:input path="name" type="text" placeholder="Name" class="form-control" id="inputValid"/>

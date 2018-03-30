@@ -10,7 +10,7 @@
     <div class="form-group">
 			<form:errors path="*" class="text-danger" />
 		</div>
-    
+    <form:hidden path="id"/>
     <div class="form-group">
       <label class="form-control-label">Chose date:</label>
       <form:input path="date" type="date"  class="form-control" id="inputValid"/>

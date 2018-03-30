@@ -37,8 +37,7 @@ public class RestController {
 	        for(int i = 0; i < actors.size(); i++) {
 	            String imageName = actors.get(i).getActorImage();
 	            
-	            actors.get(i).setActorImage(CustomFileUtils.getImage("actor_" + actors.get(i).getId(), imageName));
-	            
+	            actors.get(i).setActorImage(CustomFileUtils.getImage("actor_" + actors.get(i).getId(), imageName)); 
 	        }
 	        
 	        return actors;
@@ -49,10 +48,9 @@ public class RestController {
 		 List<ThePlay> plays = playService.findAllPlays();
 	        
 	        for(int i = 0; i < plays.size(); i++) {
-	            String imageName = plays.get(i).getPlayImage();
-	            
+	        	String imageName = plays.get(i).getPlayImage();
+	        	
 	            plays.get(i).setPlayImage(CustomFileUtils.getImage("play_" + plays.get(i).getId(), imageName));
-	            
 	        }
 	        
 	        return plays;

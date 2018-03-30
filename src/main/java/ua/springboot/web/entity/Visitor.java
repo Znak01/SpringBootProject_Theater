@@ -1,10 +1,13 @@
 package ua.springboot.web.entity;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -28,6 +31,9 @@ public class Visitor extends BaseEntity{
 	private String password;
 	private String email;
 	
+	@Column(columnDefinition = "DECIMAL(5,2)")
+	private BigDecimal balance;
+	
 	@Column(name = "first_name")
 	private String firstName;
 	
@@ -36,6 +42,10 @@ public class Visitor extends BaseEntity{
 	
 	private String mobile;
 	private Integer age;
+	
+	@Column
+	@ElementCollection(targetClass=Integer.class)
+	private Set<Integer> seats; 
 	
 	@Enumerated(EnumType.STRING)
 	private Gender gender;

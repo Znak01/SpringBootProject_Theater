@@ -39,6 +39,11 @@
     </div>
     
     <div class="form-group">
+      <label class="form-control-label">Balance</label>
+      <form:input path="balance" type="text" placeholder="Balance" class="form-control" id="inputValid"/>
+    </div>
+    
+    <div class="form-group">
       <label class="form-control-label">Mobile</label>
       <form:input path="mobile" type="text" placeholder="Mobile" class="form-control" id="inputValid"/>
     </div>

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 import ua.springboot.web.domain.ActorRequest;
 import ua.springboot.web.domain.EditActorRequest;
@@ -26,6 +27,7 @@ import ua.springboot.web.service.utils.CustomFileUtils;
 
 @Controller
 @RequestMapping("/actor")
+@SessionAttributes("editActor")
 public class ActorController {
 
 	@Autowired
