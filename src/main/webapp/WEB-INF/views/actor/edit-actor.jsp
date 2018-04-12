@@ -9,9 +9,9 @@
     <legend>Edit Form</legend>
     
     <div class="form-group">
-			<form:errors path="*" cssClass="error" />
+			<form:errors path="*" class="text-danger" />
 		</div>
-    <form:hidden path="id"/>
+		
     <div class="form-group">
       <label class="form-control-label">First Name</label>
       <form:input path="firstName" type="text" placeholder="First Name" class="form-control" id="inputValid"/><form:errors path="firstName" class="text-danger"/>

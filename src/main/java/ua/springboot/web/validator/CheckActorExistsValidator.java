@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import ua.springboot.web.domain.ActorRequest;
 import ua.springboot.web.service.ActorService;
 
-@Component
+@Component 
 public class CheckActorExistsValidator implements ConstraintValidator<CheckActorExists, ActorRequest> {
 
 	@Autowired private ActorService actorService;

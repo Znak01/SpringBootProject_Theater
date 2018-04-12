@@ -32,6 +32,7 @@ public class SpringTheaterApplication
 	static void addAdmin(ConfigurableApplicationContext context) {
 	       String email = "admin@gmail.com";
 	       String password = "123";
+	       String login = "Admin";
 	       
 	       VisitorRepository visitorRepository = context.getBean(VisitorRepository.class);
 	       Visitor entity = visitorRepository.findVisitorByEmail(email);
@@ -40,6 +41,7 @@ public class SpringTheaterApplication
 	    	   PasswordEncoder encoder = context.getBean(PasswordEncoder.class);
 	    	   entity = new Visitor();
 	    	   entity.setEmail(email);
+	    	   entity.setLogin(login);
 	    	   entity.setPassword(encoder.encode(password));
 	    	   entity.setActivated(true);
 	    	   entity.setBalance(new BigDecimal(999.99));

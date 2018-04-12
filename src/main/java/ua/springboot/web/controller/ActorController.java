@@ -146,7 +146,11 @@ public class ActorController {
 	
 	@PostMapping("/edit/{actorId}")
 	public String editActor(@ModelAttribute("editActor") @Valid EditActorRequest request, 
-			                @PathVariable("actorId") int actorId) throws IOException {
+			                @PathVariable("actorId") int actorId, BindingResult result) throws IOException {
+		
+		if(result.hasErrors()) {
+			return "actor/edit-actor";
+		}
 		
 		if(request.getActorImage().isEmpty()) {
 			return "redirect:/actor/edit/" + actorId;

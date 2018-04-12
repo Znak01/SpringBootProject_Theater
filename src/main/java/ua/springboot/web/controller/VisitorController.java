@@ -1,10 +1,9 @@
 package ua.springboot.web.controller;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.security.Principal;
 import java.util.List;
-
-import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -13,7 +12,6 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -144,10 +142,9 @@ public class VisitorController {
 	}
 	
 	@GetMapping("/edit/{visitorId}")
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public String showVisitorEdingForm(@PathVariable("visitorId") int visitorId,
 			                         Model model, Principal principal) {
-		Visitor visitro = visitorService.findVisitorByEmail(principal.getName());
+		Visitor visitro = visitorService.findById(visitorId);
 		
 		if( visitorId != visitro.getId()) {return "redirect:/";}
 		EditUserRequest request = UserMapper.entityToEditUser(visitro);
@@ -161,6 +158,7 @@ public class VisitorController {
 	@PostMapping("/edit/{visitorId}")
 	public String saveEditVisitor(@ModelAttribute("editModel") EditUserRequest request,
 			@PathVariable("visitorId") int visitorId) throws IOException {
+		
 		if(request.getFile().isEmpty()) {
 			return "redirect:/visitor/edit/" + visitorId;
 		}
@@ -169,11 +167,10 @@ public class VisitorController {
 		visitorService.saveEditVisitor(entity);
 		CustomFileUtils.createFolder("visitor_" + entity.getId());
 		CustomFileUtils.createImage("visitor_" + entity.getId(), request.getFile());		
-		return "redirect:/visitor";
+		return "redirect:/visitor/" + visitorId;
 	}
 	
 	@GetMapping("/recharge/{visitorId}")
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public String showVisitorBalanceForm(@PathVariable("visitorId") int visitorId,
 			                         Model model, Principal principal) {
 		Visitor visitro = visitorService.findVisitorByEmail(principal.getName());
@@ -219,25 +216,25 @@ public class VisitorController {
 	
 	
 	@PostMapping("buy/{sessionId}")
-	public String buyTicket(@ModelAttribute("ticketModel") @Valid TicketRequest ticketRequest, Principal principal,
-			                @PathVariable("sessionId") int sessionId, BindingResult result) {
-		if(result.hasErrors()) {
-			return "session/buy-form";
-		}
+	public String buyTicket(@ModelAttribute("ticketModel") TicketRequest ticketRequest, Principal principal,
+			                @PathVariable("sessionId") int sessionId) {
 		
 		Visitor visitor = visitorService.findVisitorByEmail(principal.getName());
 		if(visitor == null) return "redirect:/";
 		Session session = sessionService.findById(sessionId);
 		
-		if(visitor.getBalance().doubleValue()<session.getPlay().getPrice().doubleValue()) {
+		if(visitor.getBalance().doubleValue() < session.getPlay().getPrice().doubleValue()) {
 			return "/other/not-enought";
 		}
+		BigDecimal balance = new BigDecimal(visitor.getBalance().doubleValue() - session.getPlay().getPrice().doubleValue());
+		visitor.setBalance(balance);
 		
 		for (Ticket ticket : session.getTickets()) {
 			if(ticket.getNumberOfRow().equals(ticketRequest.getNumberOfRow()) && ticket.getNumberOfSeat().equals(ticketRequest.getNumberOfSeat())) {
 				return "/other/booked";
 			}
 		}
+		
 		
 		ticketRequest.setVisitor(visitor);
 		ticketRequest.setSession(session);

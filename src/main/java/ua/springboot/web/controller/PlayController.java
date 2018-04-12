@@ -117,8 +117,10 @@ public class PlayController {
 	}
 	
 	@PostMapping("edit/{playId}")
-	public String editPlay(@ModelAttribute("editPlay") @Valid EditPlayRequest request,
-			               @PathVariable("playId") int playId) throws IOException {
+	public String editPlay(@ModelAttribute("editPlay")  EditPlayRequest request,
+			               @PathVariable("playId") int playId, BindingResult result) throws IOException {
+		
+		
 		
 		if(request.getPlayImage().isEmpty()) {
 			return "redirect:/play/edit/" + playId;

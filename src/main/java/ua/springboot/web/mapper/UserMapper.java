@@ -60,6 +60,7 @@ public interface UserMapper {
 		request.setMobile(entity.getMobile());
 		request.setGender(entity.getGender());
 		request.setTickets(entity.getTickets());
+		request.setRole(entity.getRole());
 		request.setActivated(true);
 		
 		request.setPassword(entity.getPassword());
@@ -81,7 +82,7 @@ public interface UserMapper {
 		entity.setMobile(request.getMobile());
 		entity.setGender(request.getGender());
 		entity.setTickets(request.getTickets());
-		entity.setRole(Role.ROLE_USER);
+		entity.setRole(request.getRole());
 		entity.setActivated(true);
 		
 		entity.setPassword(request.getPassword()); 
