@@ -12,4 +12,8 @@ public interface SessionService {
 	
 	Session findById(int id);
 	
+	Session findSessionByDate(String date, String time);
+	
+	void deleteSessionById(int id);
+	
 }

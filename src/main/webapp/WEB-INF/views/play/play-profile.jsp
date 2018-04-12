@@ -19,18 +19,22 @@
   </div>
    </div>
     </div>
+    
     <div class="col-lg-6 col-md-2 col-sm-2">
        <h2>Example body text</h2>
           <p>Nullam quis risus eget <a href="#">urna mollis ornare</a> vel eu leo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nullam id dolor id nibh ultricies vehicula.Ut laoreet, sem ac pharetra molestie, magna quam sodales sem, in aliquam velit lorem nec magna. Aenean a nunc a risus vestibulum varius a quis mauris. Sed in tincidunt justo. Ut augue massa, fringilla sit amet rutrum sit amet, cursus in erat. Cras finibus lectus vel nulla aliquam dignissim. Proin imperdiet ex nisi, id euismod metus pellentesque quis. Phasellus faucibus tempor est. Phasellus at euismod ex, sit amet lobortis sapien. Donec varius, lectus accumsan sollicitudin pharetra, leo augue mattis tellus, eget auctor ante urna sit amet turpis. Sed imperdiet, augue convallis mattis egestas, massa elit scelerisque turpis, hendrerit sollicitudin erat neque sed lorem. Sed tincidunt rutrum faucibus. Aenean condimentum augue ut nibh suscipit rhoncus. Etiam sed pulvinar metus. Aenean vulputate tempus feugiat. Nunc elit ante, condimentum quis ultrices nec, ultrices ut leo.</p>
+  
   <div class="col-lg-12 col-md-3 col-sm-2">
 <div class="list-group">
 <button class="btn btn-outline-info btn-lg" @click="see = !see">Show Actors</button>
  <ul class="list-group" v-if="see">
- <li class="list-group-item list-group-item-action">Name: ${play.name }</li>
-    <li v-for="play in plays" class="list-group-item list-group-item-action">Actor Name: {{play.actors.firstName }} {{play.actors.lastName }}</li>
+ <c:forEach items="${actorList }" var="actor">
+    <li class="list-group-item list-group-item-action">${actor.fullName }</li>
+      </c:forEach>
   </ul>
 </div>
 </div>
+
   </div>
 </div>
 </div>

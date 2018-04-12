@@ -4,7 +4,9 @@ package ua.springboot.web.domain;
 
 
 
-import org.hibernate.validator.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,11 +21,13 @@ import ua.springboot.web.validator.CheckPasswordsMath;
 public class RegisterRequest {
 
 	
-	@NotEmpty private String login;
-	@NotEmpty @CheckEmailExists
+	@NotBlank(message = "Cant be empty") @Pattern(regexp="^[a-zA-Z0-9_]{2,10}$", message="Login not match")
+	private String login;
+	@NotBlank(message = "Cant be empty") @CheckEmailExists
 	private String email;
-	@NotEmpty private String password;
-	@NotEmpty private String passwordConfirm;
+	@NotBlank(message = "Cant be empty") @Pattern(regexp="^\\w{4,10}$", message="Password too small")
+	private String password;
+	@NotBlank(message = "Cant be empty") private String passwordConfirm;
 	private Role role;
 	
 }

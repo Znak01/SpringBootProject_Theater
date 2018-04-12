@@ -1,5 +1,7 @@
 package ua.springboot.web;
 
+import java.math.BigDecimal;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
@@ -39,6 +41,8 @@ public class SpringTheaterApplication
 	    	   entity = new Visitor();
 	    	   entity.setEmail(email);
 	    	   entity.setPassword(encoder.encode(password));
+	    	   entity.setActivated(true);
+	    	   entity.setBalance(new BigDecimal(999.99));
 	    	   entity.setRole(Role.ROLE_ADMIN);
 	    	   
 	    	   visitorRepository.save(entity);

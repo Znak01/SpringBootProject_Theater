@@ -10,6 +10,9 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
+import javax.persistence.Index;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -22,7 +25,7 @@ import ua.springboot.web.entity.enumeration.Genre;
 @Entity
 @Getter @Setter
 @NoArgsConstructor
-@Table(name = "the_play")
+@Table(name = "the_play", indexes = @Index(columnList = "name"))
 public class ThePlay extends BaseEntity {
 
 	private String name;
@@ -37,8 +40,10 @@ public class ThePlay extends BaseEntity {
 	@Column(name = "play_image")
 	private String playImage;
 	
-	@ManyToMany(mappedBy = "plays", cascade = {CascadeType.DETACH, CascadeType.MERGE, 
+	@ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, 
 			CascadeType.PERSIST, CascadeType.REFRESH}, fetch = FetchType.EAGER)
+	@JoinTable(name = "plays_actors", joinColumns = @JoinColumn(name = "play_id"),
+    inverseJoinColumns = @JoinColumn(name = "actor_id"))
 	private Set<Actor> actors;
 	
 	@OneToMany(mappedBy = "play")
@@ -50,7 +55,6 @@ public class ThePlay extends BaseEntity {
 		int result = super.hashCode();
 		result = prime * result + ((genres == null) ? 0 : genres.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((price == null) ? 0 : price.hashCode());
 		return result;
 	}
 
@@ -73,14 +77,8 @@ public class ThePlay extends BaseEntity {
 				return false;
 		} else if (!name.equals(other.name))
 			return false;
-		if (price == null) {
-			if (other.price != null)
-				return false;
-		} else if (!price.equals(other.price))
-			return false;
 		return true;
-	}
-	
-	
+	}	
+		
 	
 }

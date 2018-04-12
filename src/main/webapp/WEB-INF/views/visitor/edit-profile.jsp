@@ -14,38 +14,38 @@
 		
     <div class="form-group">
       <label class="form-control-label">Login</label>
-      <form:input path="login" type="text" placeholder="Login" class="form-control" id="inputValid"/>
+      <form:input path="login" type="text" placeholder="Login" class="form-control" id="inputValid"/><form:errors path="login" class="text-danger"/>
     </div>
     
     <div class="form-group">
       <label for="exampleInputEmail1">Email address</label>
-      <form:input path="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"/>
+      <form:input path="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email"/><form:errors path="email" class="text-danger"/>
       <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
     </div>
     
     <div class="form-group">
       <label class="form-control-label">First Name</label>
-      <form:input path="firstName" type="text" placeholder="First Name" class="form-control" id="inputValid"/>
+      <form:input path="firstName" type="text" placeholder="First Name" class="form-control" id="inputValid"/><form:errors path="firstName" class="text-danger"/>
     </div>
     
     <div class="form-group">
       <label class="form-control-label">Last Name</label>
-      <form:input path="lastName" type="text" placeholder="Last Name" class="form-control" id="inputValid"/>
+      <form:input path="lastName" type="text" placeholder="Last Name" class="form-control" id="inputValid"/><form:errors path="lastName" class="text-danger"/>
     </div>
     
     <div class="form-group">
       <label class="form-control-label">Age</label>
-      <form:input path="age" type="text" placeholder="Age" class="form-control" id="inputValid"/>
+      <form:input path="age" type="text" placeholder="Age" class="form-control" id="inputValid"/><form:errors path="age" class="text-danger"/>
     </div>
     
     <div class="form-group">
       <label class="form-control-label">Balance</label>
-      <form:input path="balance" type="text" placeholder="Balance" class="form-control" id="inputValid"/>
+      <form:input path="balance" type="text" placeholder="Balance" class="form-control" id="inputValid"/><form:errors path="balance" class="text-danger"/>
     </div>
     
     <div class="form-group">
       <label class="form-control-label">Mobile</label>
-      <form:input path="mobile" type="text" placeholder="Mobile" class="form-control" id="inputValid"/>
+      <form:input path="mobile" type="text" placeholder="Mobile" class="form-control" id="inputValid"/><form:errors path="mobile" class="text-danger"/>
     </div>
     
     <div class="form-group">
@@ -58,7 +58,7 @@
       <form:input path="file" type="file" class="form-control"/>
     </div>
 
-    <button type="submit" class="btn btn-primary btn-lg">Edit</button>
+    <button type="submit" class="btn btn-outline-warning btn-lg">Edit</button>
     </fieldset>
 </form:form>
 </div>

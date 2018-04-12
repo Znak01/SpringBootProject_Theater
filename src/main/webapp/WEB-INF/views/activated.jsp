@@ -1,0 +1,1 @@
+<h2>Activation was successful</h2>

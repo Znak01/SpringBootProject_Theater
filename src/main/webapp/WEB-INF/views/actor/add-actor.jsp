@@ -8,9 +8,9 @@
   <fieldset>
     <legend>Actor Add Form</legend>
     
-    <%-- <div class="form-group">
+        <div class="form-group">
 			<form:errors path="*" class="text-danger"/>
-		</div> --%>
+		</div> 
     
     <div class="form-group">
       <label class="form-control-label">First Name</label>
@@ -27,10 +27,10 @@
       <form:input path="age" type="text" placeholder="Age" class="form-control" id="inputValid"/><form:errors path="age" class="text-danger"/>
     </div>
     
-    <div class="form-group">
+    <%-- <div class="form-group">
        <label>Gender:</label>
        <form:radiobuttons path="gender" items="${gender}" checked="${gender == 'MALE' ? 'checked' : '' }" /><form:errors path="gender" class="text-danger"/>
-     </div> 
+     </div>   --%>
     
     <div class="form-group">
       <label class="form-control-label">Profile Image</label>

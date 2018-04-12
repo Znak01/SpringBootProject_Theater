@@ -7,8 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
+import javax.persistence.Index;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
@@ -20,7 +19,7 @@ import ua.springboot.web.entity.enumeration.Gender;
 @Entity
 	@Getter @Setter
 	@NoArgsConstructor
-	@Table(name = "actor")
+	@Table(name = "actor", indexes = @Index(columnList = "first_name, last_name"))
 	public class Actor extends BaseEntity {
 
 		
@@ -29,8 +28,8 @@ import ua.springboot.web.entity.enumeration.Gender;
 		
 		@Column(name = "last_name")
 		private String lastName;
-		
-		private Integer age;
+		private String fullName;
+		private String age;
 		
 		@Enumerated(EnumType.STRING)
 		@Column(name ="gender")
@@ -39,10 +38,9 @@ import ua.springboot.web.entity.enumeration.Gender;
 		@Column(name = "actor_image")
 		private String actorImage;
 		
-		@ManyToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, 
+		@ManyToMany(mappedBy="actors", cascade = {CascadeType.DETACH, CascadeType.MERGE, 
 				CascadeType.PERSIST, CascadeType.REFRESH})
-		@JoinTable(name = "actors_plays", joinColumns = @JoinColumn(name = "actor_id"),
-			    inverseJoinColumns = @JoinColumn(name = "play_id"))
+		
 		private Set<ThePlay> plays;
 
 		@Override

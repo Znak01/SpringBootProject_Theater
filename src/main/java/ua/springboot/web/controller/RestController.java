@@ -34,6 +34,8 @@ public class RestController {
 	public List<Actor> getActors() throws IOException {
 		 List<Actor> actors = actorService.findAllActors();
 	        
+	        
+	        
 	        for(int i = 0; i < actors.size(); i++) {
 	            String imageName = actors.get(i).getActorImage();
 	            

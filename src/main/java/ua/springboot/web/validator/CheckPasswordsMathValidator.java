@@ -9,7 +9,7 @@ import ua.springboot.web.domain.RegisterRequest;
 
 @Component
 public class CheckPasswordsMathValidator implements ConstraintValidator<CheckPasswordsMath, RegisterRequest> {
-
+	
 	@Override
 	public void initialize(CheckPasswordsMath arg0) {
 	}

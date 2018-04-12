@@ -19,7 +19,7 @@
       <td>${session.time}</td>
       <td>${session.play.name}</td>
       <td class="info"><a href="/session/${session.id}" class="btn btn-outline-info">View</a>
-                       <a href="/session/edit/${session.id}" class="btn btn-outline-warning">Edit</a>
+                       <sec:authorize access="hasRole('ROLE_ADMIN')"><a href="/session/edit/${session.id}" class="btn btn-outline-warning">Edit</a></sec:authorize>
                        <a href="/visitor/buy/${session.id}" class="btn btn-outline-success">Buy</a></td>
     </tr>
     </c:forEach>

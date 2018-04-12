@@ -13,6 +13,7 @@ public interface ActorMapper {
 		actor.setLastName(request.getLastName());
 		actor.setAge(request.getAge());
 		actor.setGender(request.getGender());
+		actor.setFullName(request.getFirstName() + " " + request.getLastName());
 		actor.setActorImage(request.getActorImage().getOriginalFilename());
 		return actor;
 	}
@@ -22,6 +23,7 @@ public interface ActorMapper {
 		request.setId(entity.getId());
 		request.setFirstName(entity.getFirstName());
 		request.setLastName(entity.getLastName());
+		request.setFullName(entity.getFirstName() + " " + entity.getLastName());
 		request.setAge(entity.getAge());
 		request.setGender(entity.getGender());
 		request.setPlays(entity.getPlays());
@@ -33,6 +35,7 @@ public interface ActorMapper {
 		entity.setId(request.getId());
 		entity.setFirstName(request.getFirstName());
 		entity.setLastName(request.getLastName());
+		entity.setFullName(request.getFirstName() + " " + request.getLastName());
 		entity.setAge(request.getAge());
 		entity.setGender(request.getGender());
 		entity.setPlays(request.getPlays());

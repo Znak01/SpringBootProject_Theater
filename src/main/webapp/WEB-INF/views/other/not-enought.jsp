@@ -1,0 +1,1 @@
+<h2>You have not enought money</h2>

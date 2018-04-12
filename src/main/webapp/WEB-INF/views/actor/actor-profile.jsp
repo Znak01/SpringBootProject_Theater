@@ -2,7 +2,6 @@
  <div id="app">
 <div class="row">
 <div class="col-lg-4 col-md-3 col-sm-2">
-<div class="list-group">
 
   <ul class="list-group">
     <li class="list-group-item list-group-item-action">First Name: ${actor.firstName }</li>
@@ -11,7 +10,6 @@
     <li class="list-group-item list-group-item-action">Gender: ${actor.gender }</li>
   </ul>
   
- </div>
      <sec:authorize access="hasRole('ROLE_ADMIN')">
        <a href="/actor/edit/${actor.id}" class="btn btn-outline-warning btn-lg">Edit</a> 
      </sec:authorize>
@@ -21,8 +19,9 @@
 <div class="list-group">
 <button class="btn btn-outline-info btn-lg" @click="see = !see">Show Plays</button>
  <ul class="list-group" v-if="see">
- <li class="list-group-item list-group-item-action">First Name: ${actor.firstName }</li>
-    <li v-for="actor in actors" class="list-group-item list-group-item-action">Play Name: {{actor.plays.name }}</li>
+ <c:forEach items="${playList }" var="play">
+    <li class="list-group-item list-group-item-action">${play.name }</li>
+      </c:forEach>
   </ul>
 </div>
 </div>

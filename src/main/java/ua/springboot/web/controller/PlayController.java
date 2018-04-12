@@ -7,6 +7,9 @@ import java.util.Set;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.Model;
@@ -52,14 +55,32 @@ public class PlayController {
 		if(entity == null) return "redirect:/";
 		
 		model.addAttribute("playImageSrc", CustomFileUtils.getImage("play_" + entity.getId(), entity.getPlayImage()));
+		model.addAttribute("actorList", entity.getActors());
 		model.addAttribute("play", entity);
 		return "play/play-profile";
 	}
 	
-	@GetMapping("/list")
-	public String showPlayList(Model model) {
-		model.addAttribute("playList", playService.findAllPlays());
-		return "play/play-list";
+	@GetMapping("/list/pages")
+	public String showPlayList(Model model, @PageableDefault Pageable pageable) throws IOException {
+		Page<ThePlay> page = playService.findAllPlaysByPage(pageable);
+		for(int i = 0; i < page.getContent().size(); i++) {
+            String imageName = page.getContent().get(i).getPlayImage();
+            
+            page.getContent().get(i).setPlayImage(CustomFileUtils.getImage("play_" + page.getContent().get(i).getId(), imageName)); 
+        }
+		
+        int currentPage = page.getNumber();
+        int begin = Math.max(1, currentPage - 2);
+        int end = Math.min(begin + 2, page.getNumber());
+        
+        
+		model.addAttribute("playList", page);
+		model.addAttribute("beginIndex", begin);
+		model.addAttribute("endIndex", end);
+		model.addAttribute("currentIndex", currentPage);
+		model.addAttribute("perPage", page.getSize());
+		model.addAttribute("playListByPageSize", page.getContent());
+		return "play/play-page";
 	}
 	
 	@GetMapping("/add")
@@ -79,32 +100,43 @@ public class PlayController {
 		ThePlay entity = PlayMapper.toPlay(request);
 		
 		playService.save(entity);
-		return "redirect:/play/list";
+		return "redirect:/play/list/pages";
 	}
 	
 	@GetMapping("edit/{playId}")
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public String showPlayEdingForm(@PathVariable("playId") int playId, Model model) {
 		ThePlay entity = playService.findById(playId);
-		Set<Actor> actorsSet = new HashSet<>(actorService.findAllActors());
 		EditPlayRequest request = PlayMapper.entityToEditPlay(entity);
+		Set<Actor> setActor = new HashSet<>(actorService.findAllActors());
 		
-		model.addAttribute("actorList", actorsSet);
+		model.addAttribute("actorList", setActor);
 		model.addAttribute("genres", Genre.values());
 		model.addAttribute("editPlay", request);
 		return "play/edit-play";
 	}
 	
 	@PostMapping("edit/{playId}")
-	public String editPlay(@ModelAttribute("editPlay") EditPlayRequest request,
+	public String editPlay(@ModelAttribute("editPlay") @Valid EditPlayRequest request,
 			               @PathVariable("playId") int playId) throws IOException {
+		
+		if(request.getPlayImage().isEmpty()) {
+			return "redirect:/play/edit/" + playId;
+		}
 		
 		ThePlay play = PlayMapper.editPlayToEntity(request);
 		playService.save(play);
 		
 		CustomFileUtils.createFolder("play_" + play.getId());
 		CustomFileUtils.createImage("play_" + play.getId(), request.getPlayImage());
-		return "redirect:/play/list";
+		return "redirect:/play/list/pages";
+	}
+	
+	@GetMapping("/delete/{playId}")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	public String deletePlay(@PathVariable("playId") int playId) {
+		playService.deletePlayById(playId);
+		return "redirect:/admin";
 	}
 
 }

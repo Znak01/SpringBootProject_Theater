@@ -1,5 +1,7 @@
 package ua.springboot.web.domain;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -8,7 +10,7 @@ import lombok.Setter;
 @Getter @Setter
 public class LoginRequest {
 
-	private String email;
-    private String password;
+	@NotBlank private String email;
+	@NotBlank private String password;
 	
 }

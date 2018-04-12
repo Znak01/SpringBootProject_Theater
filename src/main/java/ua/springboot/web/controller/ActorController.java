@@ -5,6 +5,9 @@ import java.io.IOException;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,8 +17,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import ua.springboot.web.domain.ActorFilter;
 import ua.springboot.web.domain.ActorRequest;
 import ua.springboot.web.domain.EditActorRequest;
 import ua.springboot.web.entity.Actor;
@@ -41,14 +46,66 @@ public class ActorController {
 		if(entity == null) return "redirect:/";
 		
 		model.addAttribute("actorImageSrc", CustomFileUtils.getImage("actor_" + entity.getId(), entity.getActorImage()));
+		model.addAttribute("playList", entity.getPlays());
 		model.addAttribute("actor", entity);
 		return "actor/actor-profile";
 	}
 	
-	@GetMapping("/list")
-	public String showActorList(Model model) {
-		model.addAttribute("actorList", actorService.findAllActors());
-		return "actor/actor-list";
+	@GetMapping("/list/pages")
+	public String showActorList(Model model, @PageableDefault Pageable pageable) throws IOException {
+		Page<Actor> page = actorService.findAllActorsByPage(pageable);
+		
+		for(int i = 0; i < page.getContent().size(); i++) {
+            String imageName = page.getContent().get(i).getActorImage();
+            
+            page.getContent().get(i).setActorImage(CustomFileUtils.getImage("actor_" + page.getContent().get(i).getId(), imageName)); 
+        }
+		
+        int currentPage = page.getNumber();
+        int begin = Math.max(1, currentPage - 2);
+        int end = Math.min(begin + 2, page.getNumber());
+        
+        
+		model.addAttribute("actorList", page);
+		model.addAttribute("beginIndex", begin);
+		model.addAttribute("endIndex", end);
+		model.addAttribute("currentIndex", currentPage);
+		model.addAttribute("perPage", page.getSize());
+		model.addAttribute("actorListByPageSize", page.getContent());
+		
+		
+		return "actor/actor-page";
+	}
+	
+	@GetMapping("/list/pages/filter")
+	public String showActorListFilter(Model model, @PageableDefault Pageable pageable, 
+			                                 @RequestParam("search") String search) throws IOException {
+		ActorFilter filter = null;
+		if(search != null) {
+			filter = new ActorFilter(search);
+		}
+		Page<Actor> page = actorService.findAllActorsByFullName(pageable, filter);
+		
+		for(int i = 0; i < page.getContent().size(); i++) {
+            String imageName = page.getContent().get(i).getActorImage();
+            
+            page.getContent().get(i).setActorImage(CustomFileUtils.getImage("actor_" + page.getContent().get(i).getId(), imageName)); 
+        }
+		
+        int currentPage = page.getNumber();
+        int begin = Math.max(1, currentPage - 2);
+        int end = Math.min(begin + 2, page.getNumber());
+        
+        
+		model.addAttribute("actorList", page);
+		model.addAttribute("beginIndex", begin);
+		model.addAttribute("endIndex", end);
+		model.addAttribute("currentIndex", currentPage);
+		model.addAttribute("perPage", page.getSize());
+		model.addAttribute("actorListByPageSize", page.getContent());
+		
+		
+		return "actor/actor-page";
 	}
 	
 	@GetMapping("/add")
@@ -73,7 +130,7 @@ public class ActorController {
 		actorService.save(entity);
 		CustomFileUtils.createFolder("actor_" + entity.getId());
 		CustomFileUtils.createImage("actor_" + entity.getId(), request.getActorImage());
-		return "redirect:/actor/list";
+		return "redirect:/actor/list/pages";
 	}
 	
 	@GetMapping("/edit/{actorId}")
@@ -88,7 +145,7 @@ public class ActorController {
 	}
 	
 	@PostMapping("/edit/{actorId}")
-	public String editActor(@ModelAttribute("editActor") EditActorRequest request, 
+	public String editActor(@ModelAttribute("editActor") @Valid EditActorRequest request, 
 			                @PathVariable("actorId") int actorId) throws IOException {
 		
 		if(request.getActorImage().isEmpty()) {
@@ -99,7 +156,14 @@ public class ActorController {
 		
 		CustomFileUtils.createFolder("actor_" + actor.getId());
 		CustomFileUtils.createImage("actor_" + actor.getId(), request.getActorImage());
-		return "redirect:/actor/list";
+		return "redirect:/actor/list/pages";
+	}
+	
+	@GetMapping("/delete/{actorId}")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	public String deleteActor(@PathVariable("actorId") int actorId) {
+		actorService.deleteActorById(actorId);
+		return "redirect:/admin";
 	}
 	
 }

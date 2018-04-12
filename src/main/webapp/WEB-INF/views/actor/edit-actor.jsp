@@ -14,17 +14,17 @@
     <form:hidden path="id"/>
     <div class="form-group">
       <label class="form-control-label">First Name</label>
-      <form:input path="firstName" type="text" placeholder="First Name" class="form-control" id="inputValid"/>
+      <form:input path="firstName" type="text" placeholder="First Name" class="form-control" id="inputValid"/><form:errors path="firstName" class="text-danger"/>
     </div>
     
     <div class="form-group">
       <label class="form-control-label">Last Name</label>
-      <form:input path="lastName" type="text" placeholder="Last Name" class="form-control" id="inputValid"/>
+      <form:input path="lastName" type="text" placeholder="Last Name" class="form-control" id="inputValid"/><form:errors path="lastName" class="text-danger"/>
     </div>
     
     <div class="form-group">
       <label class="form-control-label">Age</label>
-      <form:input path="age" type="text" placeholder="Age" class="form-control" id="inputValid"/>
+      <form:input path="age" type="text" placeholder="Age" class="form-control" id="inputValid"/><form:errors path="age" class="text-danger"/>
     </div>
     
     <div class="form-group">

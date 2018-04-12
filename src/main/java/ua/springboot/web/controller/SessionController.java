@@ -1,8 +1,6 @@
 package ua.springboot.web.controller;
 
-import java.security.Principal;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.IOException;
 
 import javax.validation.Valid;
 
@@ -19,15 +17,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import ua.springboot.web.domain.EditSessionRequest;
-import ua.springboot.web.domain.EditUserRequest;
 import ua.springboot.web.domain.SessionRequest;
 import ua.springboot.web.entity.Session;
-import ua.springboot.web.entity.Visitor;
+import ua.springboot.web.entity.ThePlay;
 import ua.springboot.web.mapper.SessionMapper;
-import ua.springboot.web.mapper.UserMapper;
 import ua.springboot.web.service.PlayService;
 import ua.springboot.web.service.SessionService;
-import ua.springboot.web.service.VisitorService;
+import ua.springboot.web.service.TicketService;
+import ua.springboot.web.service.utils.CustomFileUtils;
 
 @Controller
 @RequestMapping("/session")
@@ -36,17 +33,37 @@ public class SessionController {
 
 	private SessionService sessionService;
 	private PlayService playService;
-	private VisitorService visitorService;
+	private TicketService ticketService;
+//	private VisitorService visitorService;
 	
 	
 	@Autowired
-	public SessionController(SessionService sessionService, PlayService playService, VisitorService visitorService) {
+	public SessionController(SessionService sessionService, PlayService playService, TicketService ticketService) {
 		super();
 		this.sessionService = sessionService;
 		this.playService = playService;
-		this.visitorService = visitorService;
+		this.ticketService = ticketService;
+//		this.visitorService = visitorService;
 	}
 
+	
+	@GetMapping("/{sessionId}")
+	public String showActorProf(@PathVariable("sessionId") int id, Model model) throws IOException {
+		
+		Session entity = sessionService.findById(id);
+		
+		if(entity == null) return "redirect:/";
+		
+		ThePlay play = entity.getPlay();
+		
+		
+		
+		model.addAttribute("playImageSrc", CustomFileUtils.getImage("play_" + play.getId(), play.getPlayImage()));
+		model.addAttribute("ticketsList", ticketService.findAllTickets());
+		model.addAttribute("session", entity);
+		return "session/session-profile";
+	}
+	
 	@GetMapping("/list")
 	public String showSessionList(Model model) {
 		model.addAttribute("sessionList", sessionService.findAllSessions());
@@ -97,42 +114,12 @@ public class SessionController {
 		return "redirect:/session/list";
 	}
 	
-	@GetMapping("buy/{sessionId}")
-	@PreAuthorize("hasRole('ROLE_USER') OR hasRole('ROLE_ADMIN')")
-	public String showBuyForm(@PathVariable("sessionId") int sessionId, Principal principal, Model model) {
-		Visitor visitor = visitorService.findVisitorByEmail(principal.getName());
-		if(visitor == null) return "redirect:/";
-		
-		
-		Session session = sessionService.findById(sessionId);
-		session.getVisitors().add(visitor);
-		EditSessionRequest request = SessionMapper.entityToEdit(session);
-		EditUserRequest userRequest = UserMapper.entityToEditUser(visitor);
-		List<Integer> seatsList = new ArrayList<>();
-		for (int i = 1; i < 31; i++) {
-			seatsList.add(i);
-		}
-		
-		model.addAttribute("seatsList", seatsList);
-		model.addAttribute("editSession", request);
-		model.addAttribute("editVisitor", userRequest);
-		return "session/buy-form";
+	@GetMapping("/delete/{sessionId}")
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	public String deleteSession(@PathVariable("sessionId") int sessionId) {
+		sessionService.deleteSessionById(sessionId);
+		return "redirect:/admin";
 	}
 	
-	
-	@PostMapping("buy/{sessionId}")
-	@PreAuthorize("hasRole('ROLE_USER') OR hasRole('ROLE_ADMIN')")
-	public String buyTicket(@ModelAttribute("editSession") EditSessionRequest request, 
-			                @ModelAttribute("editVisitor") EditUserRequest userRequest,
-			                @PathVariable("sessionId") int sessionId) {
-		
-		
-		
-		Visitor visitor = UserMapper.editRequestToEntity(userRequest);
-		Session session = SessionMapper.editToSession(request);
-		sessionService.save(session);
-		visitorService.saveEditVisitor(visitor);
-		return "redirect:/session/list";
-	}
 	
 }

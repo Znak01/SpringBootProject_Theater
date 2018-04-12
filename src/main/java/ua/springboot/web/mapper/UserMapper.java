@@ -42,7 +42,8 @@ public interface UserMapper {
 		request.setLastName(entity.getLastName());
 		request.setGender(entity.getGender());
 		request.setMobile(entity.getMobile());
-		
+		request.setRole(entity.getRole());
+		request.setBlocked(entity.isBlocked());
 		
 		return request;
 	}
@@ -58,13 +59,14 @@ public interface UserMapper {
 		request.setLastName(entity.getLastName());
 		request.setMobile(entity.getMobile());
 		request.setGender(entity.getGender());
-		request.setSeats(entity.getSeats());
-		request.setSessions(entity.getSessions());
+		request.setTickets(entity.getTickets());
+		request.setActivated(true);
 		
 		request.setPassword(entity.getPassword());
 		
 		return request;
 	}
+	
 	
 	public static Visitor editRequestToEntity(EditUserRequest request) {
 		Visitor entity = new Visitor();
@@ -73,14 +75,14 @@ public interface UserMapper {
 		entity.setEmail(request.getEmail());
 		entity.setAge(request.getAge());
 		entity.setBalance(request.getBalance());
-		entity.setSeats(request.getSeats());
 		entity.setFirstName(request.getFirstName());
 		entity.setLastName(request.getLastName());
 		entity.setVisitorImage(request.getFile().getOriginalFilename());
 		entity.setMobile(request.getMobile());
 		entity.setGender(request.getGender());
-		entity.setSessions(request.getSessions());
+		entity.setTickets(request.getTickets());
 		entity.setRole(Role.ROLE_USER);
+		entity.setActivated(true);
 		
 		entity.setPassword(request.getPassword()); 
 		

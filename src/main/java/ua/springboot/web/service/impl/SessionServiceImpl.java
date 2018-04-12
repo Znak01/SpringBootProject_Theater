@@ -29,4 +29,14 @@ public class SessionServiceImpl implements SessionService {
 		return sessionRepository.findOne(id);
 	}
 
+	@Override
+	public Session findSessionByDate(String date, String time) {
+		return sessionRepository.findSessionByDate(date, time);
+	}
+
+	@Override
+	public void deleteSessionById(int id) {
+		sessionRepository.delete(id);
+	}
+
 }
