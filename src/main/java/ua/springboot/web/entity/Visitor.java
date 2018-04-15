@@ -29,7 +29,7 @@ public class Visitor extends BaseEntity{
 	private String password;
 	private String email;
 	
-	@Column(columnDefinition = "DECIMAL(5,2)")
+	@Column(columnDefinition = "DECIMAL(7,2)")
 	private BigDecimal balance;
 	
 	@Column(name = "first_name")
